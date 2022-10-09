@@ -7,17 +7,23 @@ const port = 3000;
 app.use((req, res, next) => setTimeout(next, 2000));
 
 app.get('/people', (req, res) => {
-  const response = [];
-
-  for (let i = 0; i < 30; i++) {
-    response.push({
-      name: uniqueNamesGenerator({
-        dictionaries: [names]
-      })
+  if (Math.random() <= 1) { // error rate
+    const response = [];
+  
+    for (let i = 0; i < 30; i++) {
+      response.push({
+        name: uniqueNamesGenerator({
+          dictionaries: [names]
+        })
+      });
+    }
+  
+    res.send(response);
+  } else {
+    res.status(500).send({
+      error: 'request failed'
     });
   }
-
-  res.send(response);
 });
 
 app.listen(port, () => {
