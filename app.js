@@ -7,7 +7,7 @@ const port = 3000;
 app.use((req, res, next) => setTimeout(next, 1000));
 
 app.get('/people', (req, res) => {
-  if (Math.random() <= 0.9) { // error rate
+  if (Math.random() <= 0.8) { // error rate
     const response = [];
   
     for (let i = 0; i < 30; i++) {
