@@ -4,10 +4,10 @@ const { uniqueNamesGenerator, names } = require('unique-names-generator');
 const app = express();
 const port = 3000;
 
-app.use((req, res, next) => setTimeout(next, 2000));
+app.use((req, res, next) => setTimeout(next, 1000));
 
 app.get('/people', (req, res) => {
-  if (Math.random() <= 1) { // error rate
+  if (Math.random() <= 0.9) { // error rate
     const response = [];
   
     for (let i = 0; i < 30; i++) {
@@ -18,10 +18,12 @@ app.get('/people', (req, res) => {
       });
     }
   
+    console.log('200', response);
     res.send(response);
   } else {
+    console.log('500', 'internal error');
     res.status(500).send({
-      error: 'request failed'
+      error: 'internal error'
     });
   }
 });
